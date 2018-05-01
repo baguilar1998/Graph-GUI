@@ -8,14 +8,25 @@ import javax.swing.JFrame;
 
 public class RadioButtonListener implements ActionListener{
 
+	//Insatance Variables for RadioButtonListener
 	private GraphGUI gui;
 	
+	/*
+	 * One Parameter Constructor of a RadioButtonListener
+	 * @param gui the current frame that has the canvas
+	 */
 	public RadioButtonListener(GraphGUI gui) {
 		this.gui=gui;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		/*
+		 * If any of the radio buttons are chosen, all
+		 * radio buttons other are disabled until the user 
+		 * exits out of the current option
+		 */
 		
 		//Add a vertex
 		if(gui.buttons[0].isSelected()) {
@@ -42,11 +53,16 @@ public class RadioButtonListener implements ActionListener{
 			gui.canvas.setRadioButtonState("Shortest Path");
 			gui.canvas.setIsEnabled(true);
 	
-		//Change weight to
+		//Change Weight
 		}else if(gui.buttons[4].isSelected()) {
 			disableUnselectedButtons(4);
 			gui.canvas.setRadioButtonState("Change Weight");
 			gui.canvas.setIsEnabled(true);
+			
+		/*
+		* Enables all radio buttons again and repaints
+		* the canvas if any changes have been made
+		*/
 		}else {
 			gui.canvas.setRadioButtonState("");
 			gui.canvas.setIsEnabled(false);
@@ -62,6 +78,11 @@ public class RadioButtonListener implements ActionListener{
 		}
 	}
 	
+	/*
+	 * Disables all the radio buttons except for the
+	 * one chosen
+	 * @param index the radiobutton that has been clicked
+	 */
 	private void disableUnselectedButtons(int index) {
 		gui.canvas.setIsEnabled(false);
 		for(int i=0;i<gui.buttons.length;++i) {

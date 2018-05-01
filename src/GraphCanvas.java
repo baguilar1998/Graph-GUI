@@ -16,12 +16,18 @@ import javax.swing.JPanel;
 
 public class GraphCanvas extends JPanel implements MouseListener{
 
+	//Instance Variables of a GraphCanvas
     private GraphGUI frame;
     private static String radioButtonState;
     private static boolean isEnabled; 
     protected static Graph graphDrawing;
     private static Vertex endpt1,endpt2;
 
+    /*
+     * One Parameter Constructor of a GraphCanvas
+     * @param frame the current JFrame the canvas
+     * is on
+     */
     public GraphCanvas(GraphGUI frame)
     {
         this.frame=frame;
@@ -31,33 +37,62 @@ public class GraphCanvas extends JPanel implements MouseListener{
         this.addMouseListener(this);
     }
 
+    /*
+     * @param e sets whether the user can edit on the 
+     * canvas or not
+     */
     public void setIsEnabled(boolean e) {
     	isEnabled = e;
     }
     
+    /*
+     * @param v sets the first vertex the user
+     * clicked on
+     */
     public void setEndpt1(Vertex v) {
     	endpt1=v;
     }
     
+    /*
+     * @param v sets the second vertex the user
+     * clicked on
+     */
     public void setEndpt2(Vertex v) {
     	endpt2=v;
     }
     
+    /*
+     * @return the first vertex the user clicked on
+     */
     public Vertex getEndpt1() {
     	return endpt1;
     }
     
+    /*
+     * @return the second vertex the user clicked on
+     */
     public Vertex getEndpt2() {
     	return endpt2;
     }
+    
+    /*
+     * @return whether the user can edit on the canvas
+     */
     public boolean getIsEnabled() {
     	return isEnabled;
     }
 
+    /*
+     * @param s sets which option (RadioButton) the 
+     * user chose
+     */
     public void setRadioButtonState(String s) {
     	radioButtonState=s;
     }
     
+    /*
+     * @return the option (RadioButton) the user chose
+     */
     public String getRadioButtonState() {
     	return radioButtonState;
     }
@@ -75,14 +110,21 @@ public class GraphCanvas extends JPanel implements MouseListener{
     	
     	if(!isEnabled)return;
         
-    	//ADD VERTEX
+    	/*
+    	 * (Add A Vertex)
+    	 * Adds a vertex to the canvas
+    	 */
         if(radioButtonState.equals("Add Vertex")) {
         	Vertex v = new Vertex(x,y);
         	graphDrawing.addVertex(v);
         	this.paintComponent(this.getGraphics());
         }
         
-        //ADD EDGE
+        /*
+         * (Add An Edge)
+         * Adds an edge to the two vertices that
+         * the user has chosen
+         */
         if(radioButtonState.equals("Add Edge")) {
            if(endpt1==null) {
         	   endpt1=graphDrawing.findVertex(e.getPoint());
@@ -113,7 +155,11 @@ public class GraphCanvas extends JPanel implements MouseListener{
            }
         }
         
-        //MOVE VERTEX
+        /*
+         * (Move a Vertex)
+         * Moves a chosen vertex to another location of 
+         * the canvas
+         */
         if(radioButtonState.equals("Move Vertex")) {
             if(endpt1==null) {
             	try {
@@ -158,7 +204,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
                 	   endpt2=null;
                 	   return;
           	   }
-           	   //graphDrawing.addEdge(endpt1,endpt2);
+
            	   endpt1.setVertexState(Color.RED);
            	   this.repaint();
                endpt1=null;
@@ -168,7 +214,11 @@ public class GraphCanvas extends JPanel implements MouseListener{
         	
         }
         
-        //CHANGE WEIGHT
+        /*
+         * (Change Weight)
+         * Changes the weight of any edge based on 
+         * the two vertices the user has chosen
+         */
         if(radioButtonState.equals("Change Weight")) {
             if(endpt1==null) {
          	   endpt1=graphDrawing.findVertex(e.getPoint());
@@ -187,6 +237,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
                	   endpt2=null;
                	   return;
             	}
+            	
          	   Edge edge1 = graphDrawing.getEdge(endpt1, endpt2);
           	   Edge edge2 = graphDrawing.getEdge(endpt1, endpt2);
           	   edge1.setWeight(weight);
@@ -206,11 +257,13 @@ public class GraphCanvas extends JPanel implements MouseListener{
         
         Graphics2D g2 = (Graphics2D) g;
         
-        //NEW CODE
         
        HashSet<Vertex> allVertexes = graphDrawing.getAllVertexes();
       
-      //Draws all the vertexes
+      /*
+       * Draws all the Vertices that the user has
+       * placed on the canvas
+       */
        for(Vertex x: allVertexes) {
            	Shape vertex = new Ellipse2D.Double(x.getX()-5, x.getY()-5, 12, 12);
         	x.setVisualVertex(vertex);
@@ -218,7 +271,10 @@ public class GraphCanvas extends JPanel implements MouseListener{
             g2.fill(vertex);
        }
 
-       //Draws all the edges
+       /*
+        * Draws all the edges that the user has made
+        * with their given weights if one exists
+        */
        for(Vertex x: allVertexes) {
         	HashSet<Edge> temp = graphDrawing.getVertexEdges(x);
         	for(Edge e : temp) { 
@@ -229,7 +285,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
              	g2.drawLine(from.x, from.y, to.x, to.y);
              	if(e.getWeight()!=0) {
              		g2.setFont(new Font("Dialog",Font.BOLD,18));
-             		g2.drawString(""+e.getWeight(), ((from.x+to.x)/2) , ((from.y+to.y)/2));
+             		g2.drawString(""+e.getWeight(), ((from.x+to.x)/2)+20 , ((from.y+to.y)/2));
              	}
         	}
         }
