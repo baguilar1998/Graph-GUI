@@ -1,8 +1,11 @@
+import java.awt.Color;
+
 public class Edge {
 	
 	//Instance Variables for Edges
 	private Vertex endpt1,endpt2;
 	private int weight;
+	private Color edgeColor;
 	private int edgeNumber;
 	
 	//Number of current Edges that have been made
@@ -14,6 +17,7 @@ public class Edge {
 	public Edge() {
 		endpt1=null;
 		endpt2=null;
+		edgeColor=Color.BLUE;
 		weight=0;
 	}
 	
@@ -24,6 +28,7 @@ public class Edge {
 	public Edge(Vertex endpt1) {
 		super();
 		this.endpt1=endpt1;
+		edgeColor=Color.BLUE;
 		edgeNumber = ++numOfEdges;
 	
 	}
@@ -37,6 +42,7 @@ public class Edge {
 		super();
 		this.endpt1=endpt1;
 		this.endpt2=endpt2;
+		edgeColor=Color.BLUE;
 		edgeNumber = ++numOfEdges;
 	}
 
@@ -73,12 +79,20 @@ public class Edge {
 		return weight;
 	}
 	
+	public Color getEdgeColor() {
+		return edgeColor;
+	}
+	
 	/*
 	 * Sets a new weight to the edge
 	 * @param weight the weight of the edge
 	 */
 	public void setWeight(int weight) {
 		this.weight=weight;
+	}
+	
+	public void setEdgeColor(Color c) {
+		edgeColor=c;
 	}
 	
 	/*

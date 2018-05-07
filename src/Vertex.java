@@ -2,13 +2,14 @@ import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex>{
 	
 	//Instance Variables for a Vertex
 	private int x,y;
 	private int vertexID;
 	private Shape visualVertex;
 	private Color vertexState;
+	protected double minDistance = Double.POSITIVE_INFINITY;
 
 	//Number of current vertices that have been made
 	private static int vertexNumber = 0;
@@ -105,6 +106,16 @@ public class Vertex {
 	
 	public String toString() {
 		return "Vertex: "+vertexID;
+	}
+
+
+	@Override
+	public int compareTo(Vertex o) {
+		// TODO Auto-generated method stub
+		if(this.minDistance<o.minDistance)return -1;
+		if(this.minDistance>o.minDistance)return 1;
+		return 0;
+	
 	}
 	
 

@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 import javax.swing.JPanel;
 
@@ -204,7 +205,30 @@ public class GraphCanvas extends JPanel implements MouseListener{
                 	   endpt2=null;
                 	   return;
           	   }
-
+          	   //Edge e1 = graphDrawing.getEdge(endpt1, endpt2);
+          	   //e1.setEdgeColor(Color.GREEN);
+        	   //Edge e2 = graphDrawing.getEdge(endpt2, endpt1);
+          	   //e2.setEdgeColor(Color.GREEN);
+          	
+          	/*endpt1.minDistance=0;
+          	PriorityQueue<Vertex> shortestpath = new PriorityQueue<Vertex>();
+          	shortestpath.add(endpt1);
+          	 
+          	 //double distance = 0;
+          	   while(!shortestpath.isEmpty() ) {
+          		   Vertex v = shortestpath.poll();
+          		   for(Edge ee: graphDrawing.getVertexEdges(v)) {
+          			   double newDistance = v.minDistance+ ee.getWeight();
+          			   if(ee.getEndpt2().minDistance>newDistance) {
+          				   shortestpath.remove(ee.getEndpt2());
+          				   ee.getEndpt2().minDistance = newDistance;
+          				   
+          				   ee.setEdgeColor(Color.GREEN);
+          				   shortestpath.add(ee.getEndpt2());
+          			   }
+          		   }
+          	   }*/
+          	   
            	   endpt1.setVertexState(Color.RED);
            	   this.repaint();
                endpt1=null;
@@ -239,7 +263,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
             	}
             	
          	   Edge edge1 = graphDrawing.getEdge(endpt1, endpt2);
-          	   Edge edge2 = graphDrawing.getEdge(endpt1, endpt2);
+          	   Edge edge2 = graphDrawing.getEdge(endpt2, endpt1);
           	   edge1.setWeight(weight);
           	   edge2.setWeight(weight);
           	   endpt1.setVertexState(Color.RED);
@@ -280,7 +304,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
         	for(Edge e : temp) { 
         		Point from = new Point(x.getX(),x.getY());
         		Point to = new Point(e.getEndpt2().getX(),e.getEndpt2().getY());
-        		g2.setColor(Color.BLUE);
+        		g2.setColor(e.getEdgeColor());
              	g2.setStroke(new BasicStroke(5));
              	g2.drawLine(from.x, from.y, to.x, to.y);
              	if(e.getWeight()!=0) {

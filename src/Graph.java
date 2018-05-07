@@ -74,6 +74,12 @@ public class Graph {
 		
 	}
 	
+	public Vertex getVertex(int vertexNumber) {
+		for(Vertex v: currentGraph.keySet()) {
+			if(v.getVertexID()==vertexNumber)return v;
+		}
+		return null;
+	}
 	/*
 	 * Gets an edge from the graph
 	 * @param head the beginning vertex

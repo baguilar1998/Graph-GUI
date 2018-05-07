@@ -47,15 +47,6 @@ public class GraphGUI extends JFrame{
 		canvas = new GraphCanvas(this);
 		canvas.setAlignmentX(RIGHT_ALIGNMENT);
 		add(canvas);
-		
-	    /*setLayout(new GridLayout(1,2));
-		
-		sideMenu = new JPanel();
-		setSideMenu();
-		add(sideMenu);
-		
-		canvas = new GraphCanvas(this);
-		add(canvas);*/
 
 		
 	}
@@ -106,9 +97,11 @@ public class GraphGUI extends JFrame{
 		sideMenu.add(randomWeights);
 		
 		treeSpanning = new JButton("Minimal Tree Spanning");
+		treeSpanning.addActionListener(bl);
 		sideMenu.add(treeSpanning);
 		
 		help = new JButton("Help");
+		help.addActionListener(bl);
 		sideMenu.add(help);
 	}
 	

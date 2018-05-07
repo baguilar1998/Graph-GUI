@@ -1,6 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.TreeSet;
+
+import javax.swing.JOptionPane;
 
 public class ButtonListener implements ActionListener{
 
@@ -51,6 +55,28 @@ public class ButtonListener implements ActionListener{
 				}
 			}
 			gui.canvas.repaint();
+		}
+		
+		if(buttonName.equals("Minimal Tree Spanning")) {
+			PriorityQueue<Vertex> treePath = new PriorityQueue<Vertex>();
+			for(Vertex v : gui.canvas.graphDrawing.getAllVertexes()) {
+				if(v.getVertexID()==1) {
+					v.minDistance=0;
+				}else {
+					v.minDistance = Double.POSITIVE_INFINITY;
+				}
+				treePath.add(v);
+			}
+			System.out.println(treePath.poll());
+			TreeSet<Edge> mst = new TreeSet<Edge>();
+			/*while(!treePath.isEmpty()) {
+				
+			}*/
+			
+		}
+		
+		if(buttonName.equals("Help")) {
+			new HelpPrompt();
 		}
 	}
 

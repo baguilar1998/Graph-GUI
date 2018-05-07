@@ -1,8 +1,9 @@
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashSet;
 
 import javax.swing.JFrame;
 
@@ -70,8 +71,15 @@ public class RadioButtonListener implements ActionListener{
 				gui.buttons[i].setEnabled(true);
 			}
 			for(Vertex v : gui.canvas.graphDrawing.getAllVertexes()) {
+				v.minDistance=Double.POSITIVE_INFINITY;
 				if(v.getVertexState().equals(Color.GREEN)) {
 					v.setVertexState(Color.RED);
+				}
+				HashSet<Edge> edges = gui.canvas.graphDrawing.getVertexEdges(v);
+				for(Edge ee: edges) {
+					if(ee.getEdgeColor().equals(Color.GREEN)) {
+						ee.setEdgeColor(Color.BLUE);
+					}
 				}
 			}
 			gui.canvas.repaint();
@@ -81,7 +89,7 @@ public class RadioButtonListener implements ActionListener{
 	/*
 	 * Disables all the radio buttons except for the
 	 * one chosen
-	 * @param index the radiobutton that has been clicked
+	 * @param index the radio button that has been clicked
 	 */
 	private void disableUnselectedButtons(int index) {
 		gui.canvas.setIsEnabled(false);
