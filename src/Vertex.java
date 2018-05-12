@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-public class Vertex implements Comparable<Vertex>{
+public class Vertex {
 	
 	//Instance Variables for a Vertex
 	private int x,y;
@@ -107,16 +107,5 @@ public class Vertex implements Comparable<Vertex>{
 	public String toString() {
 		return "Vertex: "+vertexID;
 	}
-
-
-	@Override
-	public int compareTo(Vertex o) {
-		// TODO Auto-generated method stub
-		if(this.minDistance<o.minDistance)return -1;
-		if(this.minDistance>o.minDistance)return 1;
-		return 0;
-	
-	}
-	
 
 }

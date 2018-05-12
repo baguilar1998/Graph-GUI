@@ -245,9 +245,14 @@ public class GraphCanvas extends JPanel implements MouseListener{
          */
         if(radioButtonState.equals("Change Weight")) {
             if(endpt1==null) {
-         	   endpt1=graphDrawing.findVertex(e.getPoint());
- 			   endpt1.setVertexState(Color.GREEN);
- 			   this.repaint();
+            	try {
+             	   endpt1=graphDrawing.findVertex(e.getPoint());
+             	   if(endpt1==null)throw new NullPointerException();
+     			   endpt1.setVertexState(Color.GREEN);
+     			   this.repaint();
+            	}catch (NullPointerException ex) {
+            		return;
+            	}
             }else if(endpt1.getVertexState().equals(Color.GREEN)) {
             	int weight;
             	try{

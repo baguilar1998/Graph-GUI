@@ -18,7 +18,7 @@ public class Edge {
 		endpt1=null;
 		endpt2=null;
 		edgeColor=Color.BLUE;
-		weight=0;
+		weight=100000;
 	}
 	
 	/*
@@ -78,7 +78,9 @@ public class Edge {
 	public int getWeight() {
 		return weight;
 	}
-	
+	/*
+	 * @return the edge color
+	 */
 	public Color getEdgeColor() {
 		return edgeColor;
 	}
@@ -90,7 +92,10 @@ public class Edge {
 	public void setWeight(int weight) {
 		this.weight=weight;
 	}
-	
+	/*
+	 * Sets the color of the edge
+	 * @param c Color
+	 */
 	public void setEdgeColor(Color c) {
 		edgeColor=c;
 	}
@@ -102,7 +107,7 @@ public class Edge {
 	 * String representation of an edge
 	 */
 	public String toString() {
-		return "Edge: "+edgeNumber;
+		return "Head: " + endpt1.getVertexID() + " Tail: " + endpt2.getVertexID();
 	}
 
 

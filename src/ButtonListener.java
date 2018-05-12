@@ -1,11 +1,10 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
-import java.util.TreeSet;
-
-import javax.swing.JOptionPane;
-
+import java.util.TreeMap;
 public class ButtonListener implements ActionListener{
 
 	private GraphGUI gui;
@@ -58,20 +57,80 @@ public class ButtonListener implements ActionListener{
 		}
 		
 		if(buttonName.equals("Minimal Tree Spanning")) {
-			PriorityQueue<Vertex> treePath = new PriorityQueue<Vertex>();
-			for(Vertex v : gui.canvas.graphDrawing.getAllVertexes()) {
-				if(v.getVertexID()==1) {
-					v.minDistance=0;
-				}else {
-					v.minDistance = Double.POSITIVE_INFINITY;
+
+			/*
+			 * Bad Algorithm for Minimal Spanning Tree
+			 */
+			Vertex s = gui.canvas.graphDrawing.getVertex(1);
+			HashMap <Vertex,HashSet<Edge>> mst = new HashMap<Vertex,HashSet<Edge>>();
+			mst.put(s, new HashSet<Edge>());
+			while(!gui.canvas.graphDrawing.getAllVertexes().equals(mst.keySet())) {
+				Edge min = new Edge();
+				Vertex u = new Vertex();
+				for(Vertex v : mst.keySet()) {
+					for(Edge ee: gui.canvas.graphDrawing.getVertexEdges(v)) {
+						try {
+							if(mst.containsKey(v)) {
+								if(mst.get(v).contains(ee))continue;
+								Edge adj = new Edge(ee.getEndpt2(),ee.getEndpt1());
+								if(mst.get(v).contains(adj))continue;
+								Vertex v1 = ee.getEndpt1();
+								Vertex v2 = ee.getEndpt2();
+								if(gui.canvas.graphDrawing.getVertex(v1.getVertexID()).getVertexState().equals(Color.GREEN) 
+										&& gui.canvas.graphDrawing.getVertex(v2.getVertexID()).getVertexState().equals(Color.GREEN)) continue;
+							}
+
+						}catch(NullPointerException ex) {
+							continue;
+						}
+
+						if(ee.getWeight()<min.getWeight()) {
+							u=v;
+							System.out.println(u);
+							min = ee;
+
+						}
+					}
 				}
-				treePath.add(v);
-			}
-			System.out.println(treePath.poll());
-			TreeSet<Edge> mst = new TreeSet<Edge>();
-			/*while(!treePath.isEmpty()) {
 				
-			}*/
+
+				if(mst.containsKey(u)) {
+
+					Edge adj = new Edge(min.getEndpt2(),u);
+					mst.get(u).add(min);
+					if(!mst.containsKey(min.getEndpt2())) {
+						mst.put(min.getEndpt2(), new HashSet<Edge>());
+						mst.get(min.getEndpt2()).add(adj);
+					}else {
+						mst.get(min.getEndpt2()).add(adj);
+					}
+					gui.canvas.graphDrawing.getEdge(u, min.getEndpt2()).setEdgeColor(Color.GREEN);
+					gui.canvas.graphDrawing.getEdge(min.getEndpt2(),u).setEdgeColor(Color.GREEN);
+					gui.canvas.graphDrawing.getVertex(u.getVertexID()).setVertexState(Color.GREEN);
+					gui.canvas.graphDrawing.getVertex(min.getEndpt2().getVertexID()).setVertexState(Color.GREEN);
+					min=null;
+					u=null;
+				}else {
+					mst.put(u,new HashSet<Edge>());
+					Edge adj = new Edge(min.getEndpt2(),u);
+					mst.get(u).add(min);
+					if(!mst.containsKey(min.getEndpt2())) {
+						mst.put(min.getEndpt2(), new HashSet<Edge>());
+						mst.get(min.getEndpt2()).add(adj);
+					}else {
+						mst.get(min.getEndpt2()).add(adj);
+					}
+					gui.canvas.graphDrawing.getEdge(u, min.getEndpt2()).setEdgeColor(Color.GREEN);
+					gui.canvas.graphDrawing.getEdge(min.getEndpt2(), u).setEdgeColor(Color.GREEN);
+					min=null;
+					u=null;
+				}
+			}
+			
+			
+			System.out.println(mst);
+			gui.canvas.repaint();
+			
 			
 		}
 		

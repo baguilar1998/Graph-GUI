@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -10,6 +9,9 @@ import javax.swing.text.StyledDocument;
 
 public class HelpPrompt extends JFrame{
 	
+	/*
+	 * Default Constructor for a HelpPrompt
+	 */
 	public HelpPrompt() {
 		setSize(800,700);
 		setTitle("Help");
@@ -19,6 +21,9 @@ public class HelpPrompt extends JFrame{
 		setVisible(true);
 	}
 
+	/*
+	 * A helper function that sets up the help prompt
+	 */
 	private void setInformation() {
 		setLayout(new GridLayout(1,1));
 		JTextPane helpInformation = new JTextPane();

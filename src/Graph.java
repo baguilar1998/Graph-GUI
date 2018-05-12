@@ -74,6 +74,10 @@ public class Graph {
 		
 	}
 	
+	/*
+	 * Gets a vertex that is in the graph
+	 * @param vertexNumber the vertex that the user wants
+	 */
 	public Vertex getVertex(int vertexNumber) {
 		for(Vertex v: currentGraph.keySet()) {
 			if(v.getVertexID()==vertexNumber)return v;
