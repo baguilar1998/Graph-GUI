@@ -54,8 +54,8 @@ public class HelpPrompt extends JFrame{
 				+ " Then click on the two vertices that have the edge you want to change)\n\n"
 				+ "Add All Edges: Adds all possible edges with the present vertices (Creates a complete graph)\n\n"
 				+ "Random Weights: Creates random weights between 1-10 for all edges on the screen\n\n"
-				+ "Minimal Spanning Tree: Creates a minimal spanning tree for the current graph (NOTE: All Edges"
-				+ " must have a weight before you can click on this)");
+				+ "Minimal Spanning Tree: Creates a minimal spanning tree for the current graph (NOTE: A connected graph"
+				+ " must be present and all edges must have a weight before you can click on this)");
 		add(helpInformation);
 	}
 }

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GraphCanvas extends JPanel implements MouseListener{
@@ -182,8 +183,11 @@ public class GraphCanvas extends JPanel implements MouseListener{
             	
         }
         
-        //SHORTEST PATH
-        //WORK ON THIS
+        /*
+         * (Shortest Path)
+         * Calculates the shortest path from one vertice
+         * to another
+         */
         if(radioButtonState.equals("Shortest Path")) {
         	 if(endpt1==null) {
              	try {
@@ -205,29 +209,8 @@ public class GraphCanvas extends JPanel implements MouseListener{
                 	   endpt2=null;
                 	   return;
           	   }
-          	   //Edge e1 = graphDrawing.getEdge(endpt1, endpt2);
-          	   //e1.setEdgeColor(Color.GREEN);
-        	   //Edge e2 = graphDrawing.getEdge(endpt2, endpt1);
-          	   //e2.setEdgeColor(Color.GREEN);
-          	
-          	/*endpt1.minDistance=0;
-          	PriorityQueue<Vertex> shortestpath = new PriorityQueue<Vertex>();
-          	shortestpath.add(endpt1);
-          	 
-          	 //double distance = 0;
-          	   while(!shortestpath.isEmpty() ) {
-          		   Vertex v = shortestpath.poll();
-          		   for(Edge ee: graphDrawing.getVertexEdges(v)) {
-          			   double newDistance = v.minDistance+ ee.getWeight();
-          			   if(ee.getEndpt2().minDistance>newDistance) {
-          				   shortestpath.remove(ee.getEndpt2());
-          				   ee.getEndpt2().minDistance = newDistance;
-          				   
-          				   ee.setEdgeColor(Color.GREEN);
-          				   shortestpath.add(ee.getEndpt2());
-          			   }
-          		   }
-          	   }*/
+          
+          	   JOptionPane.showMessageDialog(null, "Has not been implemented.");
           	   
            	   endpt1.setVertexState(Color.RED);
            	   this.repaint();

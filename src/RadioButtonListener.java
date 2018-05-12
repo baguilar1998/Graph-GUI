@@ -71,7 +71,6 @@ public class RadioButtonListener implements ActionListener{
 				gui.buttons[i].setEnabled(true);
 			}
 			for(Vertex v : gui.canvas.graphDrawing.getAllVertexes()) {
-				v.minDistance=Double.POSITIVE_INFINITY;
 				if(v.getVertexState().equals(Color.GREEN)) {
 					v.setVertexState(Color.RED);
 				}

@@ -9,7 +9,6 @@ public class Vertex {
 	private int vertexID;
 	private Shape visualVertex;
 	private Color vertexState;
-	protected double minDistance = Double.POSITIVE_INFINITY;
 
 	//Number of current vertices that have been made
 	private static int vertexNumber = 0;
@@ -104,6 +103,11 @@ public class Vertex {
 		visualVertex = v;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 * @return string representation of a Vertex
+	 */
 	public String toString() {
 		return "Vertex: "+vertexID;
 	}

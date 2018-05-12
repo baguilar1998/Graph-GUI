@@ -18,7 +18,7 @@ public class Edge {
 		endpt1=null;
 		endpt2=null;
 		edgeColor=Color.BLUE;
-		weight=100000;
+		weight=0;
 	}
 	
 	/*

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.TreeMap;
+
+import javax.swing.JOptionPane;
 public class ButtonListener implements ActionListener{
 
 	private GraphGUI gui;
@@ -61,15 +63,29 @@ public class ButtonListener implements ActionListener{
 			/*
 			 * Bad Algorithm for Minimal Spanning Tree
 			 */
+			
+			//Starting at the first vertex for the spanning tree
 			Vertex s = gui.canvas.graphDrawing.getVertex(1);
+			
+			//Stores the minimal spanning tree
 			HashMap <Vertex,HashSet<Edge>> mst = new HashMap<Vertex,HashSet<Edge>>();
 			mst.put(s, new HashSet<Edge>());
+			
+			//Loops until all vertices have been added to the tree
 			while(!gui.canvas.graphDrawing.getAllVertexes().equals(mst.keySet())) {
+				//Edge and Vertex variables to keep track of the minimal edge
 				Edge min = new Edge();
 				Vertex u = new Vertex();
+				
+				//Goes through all the vertexes that is currently in the tree
 				for(Vertex v : mst.keySet()) {
+					//Goes through all the edges that the vertex is connected to
 					for(Edge ee: gui.canvas.graphDrawing.getVertexEdges(v)) {
 						try {
+							/*
+							 * Skips the edge if the adjacent edge is in the tree
+							 * or if the vertices have been added to the tree already
+							 */
 							if(mst.containsKey(v)) {
 								if(mst.get(v).contains(ee))continue;
 								Edge adj = new Edge(ee.getEndpt2(),ee.getEndpt1());
@@ -77,23 +93,27 @@ public class ButtonListener implements ActionListener{
 								Vertex v1 = ee.getEndpt1();
 								Vertex v2 = ee.getEndpt2();
 								if(gui.canvas.graphDrawing.getVertex(v1.getVertexID()).getVertexState().equals(Color.GREEN) 
-										&& gui.canvas.graphDrawing.getVertex(v2.getVertexID()).getVertexState().equals(Color.GREEN)) continue;
+										&& gui.canvas.graphDrawing.getVertex(v2.getVertexID()).getVertexState().equals(Color.GREEN)) 
+									continue;
 							}
 
 						}catch(NullPointerException ex) {
+							JOptionPane.showMessageDialog(null, "Weights must be added to all edges");
 							continue;
 						}
-
+						
+						//Checks for the minimal weight of the edge
 						if(ee.getWeight()<min.getWeight()) {
 							u=v;
-							System.out.println(u);
 							min = ee;
 
 						}
 					}
 				}
-				
 
+				/*
+				 * Adds a connected edge to a vertex that has been already added
+				 */
 				if(mst.containsKey(u)) {
 
 					Edge adj = new Edge(min.getEndpt2(),u);
@@ -110,7 +130,11 @@ public class ButtonListener implements ActionListener{
 					gui.canvas.graphDrawing.getVertex(min.getEndpt2().getVertexID()).setVertexState(Color.GREEN);
 					min=null;
 					u=null;
-				}else {
+				}
+				/*
+				 * If the vertex is not in the tree, it adds it to the tree
+				 */
+				else {
 					mst.put(u,new HashSet<Edge>());
 					Edge adj = new Edge(min.getEndpt2(),u);
 					mst.get(u).add(min);
@@ -127,13 +151,14 @@ public class ButtonListener implements ActionListener{
 				}
 			}
 			
-			
-			System.out.println(mst);
+			//Displays the spanning tree
 			gui.canvas.repaint();
-			
-			
+				
 		}
 		
+		/*
+		 * Displays a prompt on how to use the gui
+		 */
 		if(buttonName.equals("Help")) {
 			new HelpPrompt();
 		}
